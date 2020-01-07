@@ -1,0 +1,29 @@
+version: '3'
+services:
+  web:
+    build:
+      context: ./
+      dockerfile: web.Dockerfile
+    ports:
+      - "80:80"
+    image: web_image
+    container_name: web_container
+    networks:
+      - backend
+    links:
+      - jenkins 
+
+  jenkins:
+    build:
+      context: ./
+      dockerfile: jenkins.Dockerfile
+    ports: 
+      - "8080:8080"
+    image: jenkins_image
+    container_name: jenkins_container
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: "bridge"
